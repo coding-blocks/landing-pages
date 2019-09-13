@@ -29,7 +29,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/jsonapi-datastore.js',
+    '~/plugins/vuency.js',
+    '~/plugins/axios.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */

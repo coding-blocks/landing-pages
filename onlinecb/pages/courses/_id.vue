@@ -7,7 +7,7 @@
             <div class="col-3 col-sm-2 pr-4">
               <img
                 class="round"
-                src="https://minio.codingblocks.com/amoeba/1008db10-135f-4b2b-a65a-5eee36be2171.svg"
+                :src="course.logo"
                 alt
               />
             </div>
@@ -17,11 +17,11 @@
                 <div class="grey font-mds mb-2">
                   {{ course.subtitle }}
                 </div>
-                <div class="font-mds bold mb-3">
+                <div class="font-mds bold mb-3" v-if="course.instructors">
                   Taught By:
                   <span class="grey">
                     <span v-for="instructor in course.instructors" :key="instructor.id">
-                      {{ /* instructor.name */}} 
+                      {{ instructor.name }} 
                     </span>
                   </span>
                 </div>
@@ -56,129 +56,45 @@
 
             <p class="mt-5">Major Topics Covered</p>
 
-            <div v-if="course.topRun && course.topRun.tags">
-              <span class="pill m-1" v-for="tag in course.topRun.tags" :key="tag.id">
+            <div v-if="topRun && topRun.tags">
+              <span class="pill m-1" v-for="tag in topRun.tags" :key="tag.id">
                 {{ tag.name }}
               </span>
             </div>
+
           </div>
 
-          <h3 class="mb-4" v-hide="getRatingStats.isRunning">Student Feedback</h3>
-
-          <div class="row c-rating-stats no-gutters" v-hide="getRatingStats.isRunning">
+          <!-- Rating Widget -->
+          <h3 class="mb-4">Student Feedback</h3> 
+          <div class="row c-rating-stats no-gutters">
             <div class="col-4 score">
-              <span class="font-lg bold">{{ course.rating }}</span>
-              <span class="bold font-md">out of 5</span>
+              <span class="font-lg bold">{{ course.rating }}
+                <br class="d-sm-none">
+              </span><span class="bold font-md">out of 5</span>
+              
 
-              <div class="rating">
-                <span class="pos-rating pr-2">
-                  <i class="fas fa-star"></i>
-                </span>
-                <span class="pos-rating pr-2">
-                  <i class="fas fa-star"></i>
-                </span>
-                <span class="pos-rating pr-2">
-                  <i class="fas fa-star"></i>
-                </span>
-                <span class="pos-rating pr-2">
-                  <i class="fas fa-star"></i>
-                </span>
-                <span class="neg-rating">
-                  <i class="fas fa-star"></i>
-                </span>
-              </div>
+              <rating-stars-static :rating="course.rating" />
 
               <div class="font-md extra-bold">
-                {{course.reviewCount}} Ratings
+                {{ course['review-count'] }} Ratings
               </div>
             </div>
             <div class="col-8 stats">
-              <div class="row">
+             
+              <div class="row" v-for="index in 5" :key="index">
                 <div class="col-12 col-sm-7">
-                  <progress value="0.7"></progress>
+                  <progress :value="stats[5-index]" :max="course['review-count']"></progress>
                 </div>
                 <div class="col-5 rating">
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
+                  <span class="pos-rating" v-for="i in 6-index" :key="i">
                     <i class="fas fa-star"></i>
                   </span>
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-7">
-                  <progress value="0.4"></progress>
-                </div>
-                <div class="col-5 rating">
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-7">
-                  <progress value="0.8"></progress>
-                </div>
-                <div class="col-5 rating">
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-7">
-                  <progress value="0.3"></progress>
-                </div>
-                <div class="col-5 rating">
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-7">
-                  <progress value="0.5"></progress>
-                </div>
-                <div class="col-5 rating">
-                  <span class="pos-rating">
-                    <i class="fas fa-star"></i>
-                  </span>
-                </div>
-              </div>
+              
             </div>
-          </div>
+          </div>  
+          <!--   End Rating Widget         -->
 
         </div>
 
@@ -188,7 +104,7 @@
               <div class="card-video">
                 <iframe
                   class="video"
-                  :src="course.promoVideo"
+                  :src="course['promo-video']"
                   controls
                   allowfullscreen
                 ></iframe>
@@ -228,210 +144,18 @@
             </div>
           </div>
 
+          <div class="border-card mt-4" v-if="course.faq">
+            <h3>Frequently Asked Questions</h3>
+            <hr>
+            <div>
+              {{course.faq}} 
+            </div>
+          </div>
+
         </div>
       </div>
 
-        <div class="border-card mt-4" v-if="course.faq">
-          <h3>Frequently Asked Questions</h3>
-          <hr>
-          <div>
-            {{course.faq}} 
-          </div>
-        </div>
-
-      <div class="row c-card-carousel pb-3">
-        <div class="col-8 col-md-4 col-lg-3">
-          <div class="border-card round c-rating-card">
-            <div class="row justify-content-between no-gutters">
-              <div class="bold card-md">Sid_90</div>
-              <div class="grey card-md">8 hours ago</div>
-            </div>
-
-            <div
-              class="heading text-ellipses"
-            >Great Experience! fantastic experience! Had a great time learning from the fantastic teachers.</div>
-
-            <div class="rating">
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="neg-rating">
-                <i class="fas fa-star"></i>
-              </span>
-            </div>
-
-            <div class="review grey">
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-            </div>
-          </div>
-        </div>
-        <div class="col-8 col-md-4 col-lg-3">
-          <div class="border-card round c-rating-card">
-            <div class="row justify-content-between no-gutters">
-              <div class="bold font-sm">Sid_90</div>
-              <div class="grey card-md">8 hours ago</div>
-            </div>
-
-            <div
-              class="heading text-ellipses"
-            >Great Experience! fantastic experience! Had a great time learning from the fantastic teachers.</div>
-
-            <div class="rating">
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="neg-rating">
-                <i class="fas fa-star"></i>
-              </span>
-            </div>
-
-            <div class="review grey">
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-            </div>
-          </div>
-        </div>
-
-        <div class="col-8 col-md-4 col-lg-3">
-          <div class="border-card round c-rating-card">
-            <div class="row justify-content-between no-gutters">
-              <div class="bold font-sm">Sid_90</div>
-              <div class="grey card-md">8 hours ago</div>
-            </div>
-
-            <div
-              class="heading text-ellipses"
-            >Great Experience! fantastic experience! Had a great time learning from the fantastic teachers.</div>
-
-            <div class="rating">
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="neg-rating">
-                <i class="fas fa-star"></i>
-              </span>
-            </div>
-
-            <div class="review grey">
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-            </div>
-          </div>
-        </div>
-
-        <div class="col-8 col-md-4 col-lg-3">
-          <div class="border-card round c-rating-card">
-            <div class="row justify-content-between no-gutters">
-              <div class="bold font-sm">Sid_90</div>
-              <div class="grey card-md">8 hours ago</div>
-            </div>
-
-            <div class="heading text-ellipses">Great Experience</div>
-
-            <div class="rating">
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="neg-rating">
-                <i class="fas fa-star"></i>
-              </span>
-            </div>
-
-            <div class="review grey">
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-            </div>
-          </div>
-        </div>
-
-        <div class="col-8 col-md-4 col-lg-3">
-          <div class="border-card round c-rating-card">
-            <div class="row justify-content-between no-gutters">
-              <div class="bold font-sm">Sid_90</div>
-              <div class="grey card-md">8 hours ago</div>
-            </div>
-
-            <div class="heading text-ellipses">Great Experience</div>
-
-            <div class="rating">
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="pos-rating">
-                <i class="fas fa-star"></i>
-              </span>
-              <span class="neg-rating">
-                <i class="fas fa-star"></i>
-              </span>
-            </div>
-
-            <div class="review grey">
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-              The course was pretty basic but good. The teacher was clear while speakin so I definitely reccomend
-              this
-              to start and get an idea about how Shopify works.
-            </div>
-          </div>
-        </div>
-      </div>
+      <ReviewCarousel :course-id="course.id" />
 
       <div class="row justify-content-center">
         <div class="col-12 col-md-9">
@@ -609,13 +333,40 @@
 
 
 <script>
-import { Deserializer } from 'jsonapi-serializer'
+// import { Deserializer } from 'jsonapi-serializer'
+import RatingStarsStatic from '../../components/rating-stars-static.vue';
+import ReviewCarousel from '../../components/review-carousel.vue';
 
 export default {
-  async asyncData ({ params, $axios }) {
+  async asyncData ({ params, $axios, app }) {
     const res = await $axios.get(`/courses/${params.id}`)
+    const course = app.$store.sync(res.data)
     return  {
-      course: await (new Deserializer()).deserialize(res.data)
+      course: app.$store.find("courses", course.id)
+    }
+  },
+  components: {
+    RatingStarsStatic,
+    ReviewCarousel
+  },
+  created () {
+    this.getRatingStats.run()
+  },
+  computed: {
+    topRun: function () {
+      let runs = this.course.activeRuns
+      if (!runs || !runs.length)
+        runs = this.course.runs
+
+      const now = +new Date() / 1000.0
+
+      const currentRuns = runs.filter((run, index) => {
+        return run['enrollment-start'] < now && run['enrollment-end'] > now && !run.unlisted
+      })
+
+      const byPrice = l => l.price
+
+      return currentRuns.sort(byPrice)[0] || runs.sort(byPrice)[0]
     }
   },
   data() {
@@ -623,13 +374,22 @@ export default {
       course: {
         instructors: [{ id: 2 }]
       },
+      stats: [],
       session: {
-        isAuthenticated: false
+        isAuthenticated: false 
       }
     }
   },
   methods: {
     logIn() {}
+  },
+  tasks(t) {
+    return {
+      getRatingStats: t(function * () {
+        const response = yield this.$axios.get(`/courses/${this.course.id}/rating`)
+        this.stats = response.data.stats
+      })
+    }
   }
 }
 </script>

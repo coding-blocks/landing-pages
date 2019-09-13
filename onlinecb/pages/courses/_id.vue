@@ -158,8 +158,9 @@
       <ReviewCarousel :course-id="course.id" />
 
       <div class="row justify-content-center">
-        <div class="col-12 col-md-9">
+        <div class="col-12 col-md-9" :class="{ 'col-md-9': course.projects }">
           <h3 class="mb-5">What will you learn?</h3>
+          <!-- Accordion -->
           <div class="border-card c-accordion-card">
             <div class="c-accordion c-about-accordion">
               <div class="list-divided border-none">
@@ -267,65 +268,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-3">
-          <h3 class="mb-5">Projects</h3>
-          <div class="row">
-            <div class="col-12 mb-4">
-              <div class="img-card">
-                <div class="head">
-                  <img class="back-img" src="images/android.svg" />
-                  <div class="content white">
-                    <h4>Project 1</h4>
-                  </div>
-                </div>
-                <div class="foot">
-                  <h4>Log Analysis</h4>
-                  <div class="card-md">
-                    Analyze data from the logs of a web service to answer questions such as "What is the
-                    most popular page?" and "When was
-                    the error rate high?" using advanced SQL queries
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 mb-4">
-              <div class="img-card">
-                <div class="head">
-                  <img class="back-img" src="images/android.svg" />
-                  <div class="content white">
-                    <h4>Project 1</h4>
-                  </div>
-                </div>
-                <div class="foot">
-                  <h4>Log Analysis</h4>
-                  <div class="card-md">
-                    Analyze data from the logs of a web service to answer questions such as "What is the
-                    most popular page?" and "When was
-                    the error rate high?" using advanced SQL queries
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 mb-4">
-              <div class="img-card">
-                <div class="head">
-                  <img class="back-img" src="images/android.svg" />
-                  <div class="content white">
-                    <h4>Project 1</h4>
-                  </div>
-                </div>
-                <div class="foot">
-                  <h4>Log Analysis</h4>
-                  <div class="card-md">
-                    Analyze data from the logs of a web service to answer questions such as "What is the
-                    most popular page?" and "When was
-                    the error rate high?" using advanced SQL queries
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        <!-- Projects -->
+        <ProjectList :project-ids="projectIds" />
       </div>
     </div>
   </div>
@@ -336,6 +281,7 @@
 // import { Deserializer } from 'jsonapi-serializer'
 import RatingStarsStatic from '../../components/rating-stars-static.vue';
 import ReviewCarousel from '../../components/review-carousel.vue';
+import ProjectList from '../../components/project-list.vue';
 
 export default {
   async asyncData ({ params, $axios, app }) {
@@ -347,12 +293,16 @@ export default {
   },
   components: {
     RatingStarsStatic,
-    ReviewCarousel
+    ReviewCarousel,
+    ProjectList
   },
   created () {
     this.getRatingStats.run()
   },
   computed: {
+    projectIds: function () {
+      return this.course.projects.map(x => x.id)
+    },
     topRun: function () {
       let runs = this.course.activeRuns
       if (!runs || !runs.length)

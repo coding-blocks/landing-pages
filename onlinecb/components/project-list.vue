@@ -47,7 +47,6 @@ export default {
           }
         })
         this.projects = this.$store.sync(response.data)
-        console.log(this.projects)
       })
     }
   }

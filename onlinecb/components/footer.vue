@@ -1,0 +1,106 @@
+<template>
+  <footer>
+    <div class="row justify-content-around pb-5 pt-5 pl-5 pr-5 bg-gradient-black-lr m-0 white">
+      <div class="col-12 col-md-5">
+        <div class="heading-u">About Coding Blocks</div>
+        <div class="font-mds">
+          Coding Blocks was founded in 2014 with a mission to create skilled Software Engineers for our country and the
+          world. We
+          are here to bridge the gap between the quality of skills demanded by industry and the quality of skills imparted
+          by
+          conventional institutes.
+          <br />
+          <p>
+            At Coding Blocks, we strive to increase student interest by providing hands on practical training on every
+            concept
+            taught in the classroom.
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="heading-u">Online Courses</div>
+        <div class="font-mds">
+          <nuxt-link to="/courses/c-plus-plus-online-course-for-beginners">C++ ( Launchpad )</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/complete-java-course-online">Java ( Crux )</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/web-development-online-course">Web Development</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/android-app-training-online">Android Development</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/machine-learning-course-online">Machine Learning</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/competitive-programming-course-online">Competitive Programming</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/coding-interview-preparation-online">Interview Programming</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/git-github">Git & Github</nuxt-link>
+          <br />
+          <nuxt-link to="/courses/angular-node-js">AngularJS</nuxt-link>
+          <br />
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="heading-u">Contact Us</div>
+
+        <div class="row align-items-center mb-4 no-gutters">
+          <i class="fas fa-2x fa-phone mr-4"></i>
+          9999579111/222
+        </div>
+        <div class="row align-items-center mb-4 no-gutters">
+          <i class="fas fa-2x fa-envelope mr-4"></i>
+          <a class="white" href="mailto:admissions@codingblocks.com">admissions@codingblocks.com</a>
+        </div>
+
+        <div class="heading-u">Connect With Us</div>
+
+        <div class="row justify-content-around align-items-end">
+          <a href="http://facebook.com/codingblocksindia">
+            <span class="link shadow white">
+              <i class="fab fa-2x fa-facebook-f"></i>
+            </span>
+          </a>
+
+          <a href="http://twitter.com/codingblocksIN">
+            <span class="link shadow white">
+              <i class="fab fa-2x fa-twitter"></i>
+            </span>
+          </a>
+
+          <a href="https://www.youtube.com/codingblocksindia">
+            <span class="link shadow white">
+              <i class="fab fa-2x fa-youtube"></i>
+            </span>
+          </a>
+
+          <a href="http://github.com/coding-blocks">
+            <span class="link shadow white">
+              <i class="fab fa-2x fa-github"></i>
+            </span>
+          </a>
+
+          <a href="https://www.linkedin.com/company/coding-blocks">
+            <span class="link shadow white">
+              <i class="fab fa-2x fa-linkedin-in"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-5 row justify-content-between font-mds m-0">
+      <div class="d-flex justify-content-around col-12 col-md-5">
+        <a href="https://codingblocks.com/about.html">
+          <button>About Us</button>
+        </a>
+        <a href="https://codingblocks.com/tos.html">
+          <button>Terms & Conditions</button>
+        </a>
+        <a href="https://codingblocks.com/privacypolicy.html">
+          <button>Privacy Policy</button>
+        </a>
+      </div>
+      <div class="mt-3 mt-md-0">Copyright 2019 - Coding Blocks Pvt Ltd</div>
+    </div>
+  </footer>
+</template>

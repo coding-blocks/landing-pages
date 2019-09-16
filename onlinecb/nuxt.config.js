@@ -32,6 +32,7 @@ export default {
   plugins: [
     '~/plugins/jsonapi-datastore.js',
     '~/plugins/vuency.js',
+    '~/plugins/session.js',
     '~/plugins/axios.js'
   ],
   /*
@@ -46,7 +47,8 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt'
   ],
   /*
    ** Axios module configuration

@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "cookie-universal-nuxt": "^2.0.17",
+    "dayjs": "^1.8.16",
     "jsonapi-datastore": "^0.4.0-beta",
     "nuxt": "^2.0.0",
     "qs": "^6.8.0",

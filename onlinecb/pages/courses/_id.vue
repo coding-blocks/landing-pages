@@ -157,113 +157,19 @@
 
       <ReviewCarousel :course-id="course.id" />
 
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" v-if="topRun">
         <div class="col-12 col-md-9" :class="{ 'col-md-9': course.projects }">
           <h3 class="mb-5">What will you learn?</h3>
           <!-- Accordion -->
-          <div class="border-card c-accordion-card">
+          <div class="border-card accordion-card mb-5">
             <div class="c-accordion c-about-accordion">
               <div class="list-divided border-none">
-                <div class="list-divided border-none">
-                  <div class="row no-gutters pointer">
-                    <div class="li-left col-12 col-sm-8">
-                      <div class="col-1">-</div>
-                      <div class="col-10">Mathematics 1.0</div>
-                    </div>
-                    <div class="li-right col-4 dsp-none-xs">
-                      <div>4 Lectures</div>
-                      <div>03:34</div>
-                    </div>
-                  </div>
-                  <div class="pb-4 pt-4">
-                    <div class="row red no-gutters pointer">
-                      <div class="li-left col-12 col-sm-8">
-                        <div class="col-1 code-icon-red content-icon"></div>
-                        <div class="col-10">Chewbacca and Number, HackerBlocks Tutorial</div>
-                      </div>
-                      <div class="li-right dsp-none-xs col-4">
-                        <div>Preview</div>
-                        <div class="grey">03:34</div>
-                      </div>
-                    </div>
-
-                    <div class="row red no-gutters pointer">
-                      <div class="li-left col-12 col-sm-8">
-                        <div class="col-1 play-icon-red content-icon"></div>
-                        <div class="col-10">Tavas and SaDDas, Codeforces 535-B</div>
-                      </div>
-                      <div class="li-right no-gutters dsp-none-xs col-4">
-                        <div class="col-6">Preview</div>
-                        <div class="grey col-6">03:34</div>
-                      </div>
-                    </div>
-
-                    <div class="row grey no-gutters pointer">
-                      <div class="li-left col-12 col-sm-8">
-                        <div class="col-1 play-icon-red content-icon"></div>
-                        <div class="col-10">Fast Exponentiation</div>
-                      </div>
-                      <div class="li-right dsp-none-xs col-4">
-                        <div class="t-align-c">
-                          <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="grey">03:34</div>
-                      </div>
-                    </div>
-
-                    <div class="row grey no-gutters pointer">
-                      <div class="li-left col-12 col-sm-8">
-                        <div class="col-1 play-icon-red content-icon"></div>
-                        <div class="col-10">Unique Number-III, Hackerblocks, Bitmasking</div>
-                      </div>
-                      <div class="li-right dsp-none-xs col-4">
-                        <div class="t-align-c">
-                          <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="grey">03:34</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="list-divided border-none">
-                  <div class="row no-gutters pointer">
-                    <div class="li-left col-12 col-sm-8">
-                      <div class="col-1">-</div>
-                      <div class="col-10">Mathematics 1.0</div>
-                    </div>
-                    <div class="li-right col-4 dsp-none-xs">
-                      <div>4 Lectures</div>
-                      <div>03:34</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="list-divided border-none">
-                  <div class="row no-gutters pointer">
-                    <div class="li-left col-12 col-sm-8">
-                      <div class="col-1">-</div>
-                      <div class="col-10">Mathematics 1.0</div>
-                    </div>
-                    <div class="li-right col-4 dsp-none-xs">
-                      <div>4 Lectures</div>
-                      <div>03:34</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="list-divided border-none">
-                  <div class="row no-gutters pointer">
-                    <div class="li-left col-12 col-sm-8">
-                      <div class="col-1">-</div>
-                      <div class="col-10">Mathematics 1.0</div>
-                    </div>
-                    <div class="li-right col-4 dsp-none-xs">
-                      <div>4 Lectures</div>
-                      <div>03:34</div>
-                    </div>
-                  </div>
-                </div>
+               
+                <SectionAccordion 
+                  :section-id="section.id" 
+                  v-for="section in topRun.sections" 
+                  :key="section.id" 
+                />
               </div>
             </div>
           </div>
@@ -273,15 +179,26 @@
         <ProjectList :project-ids="projectIds" />
       </div>
     </div>
+
+    <!-- Instructors -->
+    <InstructorsList :instructors="course.instructors" />
+
+    <Testimonials video-link="https://www.youtube.com/embed/h_YmJLN9IgY" />
+
+    <RunsView :runs="course['active-runs']" />
+
   </div>
 </template>
 
 
 <script>
-// import { Deserializer } from 'jsonapi-serializer'
 import RatingStarsStatic from '../../components/rating-stars-static.vue';
 import ReviewCarousel from '../../components/review-carousel.vue';
 import ProjectList from '../../components/project-list.vue';
+import SectionAccordion from '../../components/section-accordion/index.vue';
+import InstructorsList from '../../components/instructors-list.vue';
+import Testimonials from '../../components/testimonials.vue';
+import RunsView from '../../components/runs-view/index.vue';
 
 export default {
   async asyncData ({ params, $axios, app }) {
@@ -294,7 +211,11 @@ export default {
   components: {
     RatingStarsStatic,
     ReviewCarousel,
-    ProjectList
+    ProjectList,
+    SectionAccordion,
+    InstructorsList,
+    Testimonials,
+    RunsView
   },
   created () {
     this.getRatingStats.run()
@@ -304,7 +225,7 @@ export default {
       return this.course.projects.map(x => x.id)
     },
     topRun: function () {
-      let runs = this.course.activeRuns
+      let runs = this.course['active-runs']
       if (!runs || !runs.length)
         runs = this.course.runs
 

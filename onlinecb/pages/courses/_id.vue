@@ -51,7 +51,7 @@
             <h3 class="mb-3 mt-5">Summary</h3>
 
             <div class="para summary grey">
-              {{ course.summary }}
+              <MarkdownToHtml :markdown="course.summary" />
             </div>
 
             <p class="mt-5">Major Topics Covered</p>
@@ -109,9 +109,9 @@
                   allowfullscreen
                 ></iframe>
               </div>
-              <div class="button-container row justify-content-center">
-                <button class="button-solid col-5">BUY NOW TO ENROLL</button>
-                <button class="button-dashed col-5">ENROLL VIA OTP</button>
+              <div class="button-container row justify-content-center t-align-c">
+                <a class="button-solid col-5" href="#runs">BUY NOW</a>
+                <a class="button-dashed col-5" href="#runs">Start Free Trial</a>
               </div>
 
               <div class="course-features" v-if="course.coursefeatures">
@@ -185,7 +185,7 @@
 
     <Testimonials video-link="https://www.youtube.com/embed/h_YmJLN9IgY" />
 
-    <RunsView :runs="course['active-runs']" />
+    <RunsView :runs="course['active-runs']" :course="course"  />
 
   </div>
 </template>
@@ -199,6 +199,7 @@ import SectionAccordion from '../../components/section-accordion/index.vue';
 import InstructorsList from '../../components/instructors-list.vue';
 import Testimonials from '../../components/testimonials.vue';
 import RunsView from '../../components/runs-view/index.vue';
+import MarkdownToHtml from '../../components/markdown-to-html.vue';
 
 export default {
   async asyncData ({ params, $axios, app }) {
@@ -215,7 +216,8 @@ export default {
     SectionAccordion,
     InstructorsList,
     Testimonials,
-    RunsView
+    RunsView,
+    MarkdownToHtml
   },
   created () {
     this.getRatingStats.run()

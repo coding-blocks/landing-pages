@@ -48,7 +48,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    'vue-sweetalert2/nuxt'
   ],
   /*
    ** Axios module configuration
@@ -67,5 +68,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  env: {
+    dukaanUrl: 'https://dukaan.codingblocks.xyz'
   }
 }

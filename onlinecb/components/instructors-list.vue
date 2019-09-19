@@ -23,7 +23,7 @@
                   <br />
                   <a :href="'mailto:' + instructor.email">{{instructor.email}}</a>
                 </div>
-                <div class="classroom-para">{{instructor.description}}</div>
+                <MarkdownToHtml class="classroom-para" :markdown="instructor.description" />
               </div>
             </div>
           </div>
@@ -35,7 +35,12 @@
 
 
 <script>
+import MarkdownToHtml from './markdown-to-html.vue';
+
 export default {
-  props: ['instructors']
+  props: ['instructors'],
+  components: {
+    MarkdownToHtml
+  }
 }
 </script>

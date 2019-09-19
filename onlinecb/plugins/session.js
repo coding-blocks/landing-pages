@@ -6,7 +6,7 @@ class Session {
     this.axios = axios
 
     if (token) {
-      this.isAuthenticated = false
+      this.isAuthenticated = true
       this.token = token
     }
   }
@@ -26,9 +26,8 @@ class Session {
 
 
   authenticate () {
-    console.log("here")
     window.localStorage.setItem("redirectionPathExternal", window.location.pathname)
-    window.location.href = "/app"
+    window.location.href = "/app/login"
   }
 }
 

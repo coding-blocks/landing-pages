@@ -18,6 +18,8 @@
     "jsonapi-datastore": "^0.4.0-beta",
     "nuxt": "^2.0.0",
     "qs": "^6.8.0",
+    "snarkdown": "^1.2.2",
+    "vue-sweetalert2": "^2.1.1",
     "vuency": "^0.1.7"
   },
   "devDependencies": {

@@ -9,6 +9,8 @@
     <div class="row justify-content-center m-0">
       <RunCard v-for="run in runs" :key="run.id"
         :run="run"
+        :course="course"
+
        />
 
       <span v-if="!runs.length">
@@ -23,7 +25,7 @@
 import RunCard from './run-card.vue';
 
 export default {
-  props: ['runs'],
+  props: ['runs', 'course'],
   components: {
     RunCard
   }

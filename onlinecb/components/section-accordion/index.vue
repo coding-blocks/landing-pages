@@ -6,8 +6,8 @@
         <div class="col-10">{{ section.name }}</div>
       </div>
       <div class="li-right col-4 dsp-none-xs">
-        <div>{{ section.contents.length }} Items</div>
-        <div>03:34</div>
+        <div class="col-6">{{ section.contents.length }} Items</div>
+        <div class="col-6">{{duration}}</div>
       </div>
     </div>
     <div class="pb-4 pt-4" v-show="!collapsed" @click.stop>
@@ -32,6 +32,14 @@ export default {
   props: ['sectionId'],
   components: {
     ContentItem
+  },
+  computed: {
+    duration() {
+      const secs = Math.floor(this.section.contents.reduce((acc, val) => acc += val.duration, 0) / 1000)
+      const mins = Math.floor(secs/60)
+      const hrs = Math.floor(mins/60)
+      return `${hrs}:${mins}:${secs%60}`
+    }
   },
   data() {
     return {

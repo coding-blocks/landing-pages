@@ -1,3 +1,5 @@
+const config = require('./config.json')[process.env.NODE_ENV]
+
 export default {
   mode: 'universal',
   /*
@@ -24,7 +26,8 @@ export default {
    ** Global CSS
    */
   css: [
-    { src: '@coding-blocks/motley/dist/online-cb/app.min.css'}
+    { src: '@coding-blocks/motley/dist/online-cb/app.min.css'},
+    { src: '@coding-blocks/motley/dist/hb/app.min.css'}
   ],
   /*
    ** Plugins to load before mounting the App
@@ -55,11 +58,7 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    host: 'localhost',
-    port: '3000',
-    prefix: '/api/v2',
-  },
+  axios: config.axios,
   /*
    ** Build configuration
    */
@@ -69,7 +68,5 @@ export default {
      */
     extend(config, ctx) {}
   },
-  env: {
-    dukaanUrl: 'https://dukaan.codingblocks.xyz'
-  }
+  env: config
 }

@@ -1,17 +1,18 @@
 <template>
   <div class="rating">
     <span 
-      :class="i < rating ? 'pos-rating' : 'neg-rating'"
+      :class="i < rating ? `pos-rating ${posStarClass}`: 'neg-rating'"
       v-for="i in 5" 
       :key="i"
     >
-      <i class="fas fa-star"></i>
+      <i class="fas fa-star" :class="baseStarClass" ></i>
     </span>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['rating']
+  props: ['rating', 'baseStarClass', 'posStarClass']
 }
 </script>

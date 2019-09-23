@@ -201,6 +201,8 @@ import Testimonials from '../../components/testimonials.vue';
 import RunsView from '../../components/runs-view/index.vue';
 import MarkdownToHtml from '../../components/markdown-to-html.vue';
 
+import { topRunForCourse } from '../../utils/course';
+
 export default {
   async asyncData ({ params, $axios, app }) {
     const res = await $axios.get(`/courses/${params.id}`)
@@ -227,19 +229,7 @@ export default {
       return this.course.projects.map(x => x.id)
     },
     topRun: function () {
-      let runs = this.course['active-runs']
-      if (!runs || !runs.length)
-        runs = this.course.runs
-
-      const now = +new Date() / 1000.0
-
-      const currentRuns = runs.filter((run, index) => {
-        return run['enrollment-start'] < now && run['enrollment-end'] > now && !run.unlisted
-      })
-
-      const byPrice = l => l.price
-
-      return currentRuns.sort(byPrice)[0] || runs.sort(byPrice)[0]
+      return topRunForCourse(this.course)
     }
   },
   data() {

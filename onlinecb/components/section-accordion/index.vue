@@ -38,7 +38,7 @@ export default {
       const secs = Math.floor(this.section.contents.reduce((acc, val) => acc += val.duration, 0) / 1000)
       const mins = Math.floor(secs/60)
       const hrs = Math.floor(mins/60)
-      return `${hrs}:${mins}:${secs%60}`
+      return `${hrs}:${mins % 60}:${secs % 60}`
     }
   },
   data() {
